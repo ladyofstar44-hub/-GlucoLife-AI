@@ -1,0 +1,575 @@
+<!DOCTYPE html>  <html lang="en">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<title>GlucoLife AI</title>  <style>  
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');  
+  
+:root {  
+  --green: #6b9b83;  
+  --dark: #315d4b;  
+  --mint: #e4f1e9;  
+  --blue: #e3edf8;  
+  --purple: #eee7f7;  
+  --cream: #faf4e9;  
+  --text: #344b40;  
+  --white: #ffffff;  
+}  
+  
+* { box-sizing: border-box; }  
+  
+body {  
+  margin: 0;  
+  font-family: 'Nunito', sans-serif;  
+  background: #f5f8f5;  
+  color: var(--text);  
+}  
+  
+header {  
+  background: linear-gradient(120deg,#dcefe5,#e9e5f5);  
+  padding: 28px 6%;  
+  border-radius: 0 0 30px 30px;  
+}  
+  
+.top {  
+  display: flex;  
+  justify-content: space-between;  
+  align-items: center;  
+  gap: 12px;  
+  flex-wrap: wrap;  
+}  
+  
+.logo {  
+  font-size: 25px;  
+  font-weight: 800;  
+  color: var(--dark);  
+}  
+  
+.logo span { color: #9b87b7; }  
+  
+.tagline {  
+  font-size: 13px;  
+  color: #61796c;  
+}  
+  
+.profile {  
+  background: white;  
+  border-radius: 18px;  
+  padding: 10px 16px;  
+  font-weight: 700;  
+}  
+  
+.welcome {  
+  margin-top: 35px;  
+}  
+  
+.welcome h1 {  
+  font-size: clamp(25px,5vw,38px);  
+  margin-bottom: 5px;  
+}  
+  
+.welcome p { color: #61796c; }  
+  
+.container {  
+  max-width: 1100px;  
+  margin: 25px auto;  
+  padding: 0 18px 50px;  
+}  
+  
+.stats {  
+  display: grid;  
+  grid-template-columns: repeat(auto-fit,minmax(150px,1fr));  
+  gap: 15px;  
+}  
+  
+.card {  
+  background: white;  
+  border-radius: 20px;  
+  padding: 20px;  
+  box-shadow: 0 4px 18px #344b400d;  
+}  
+  
+.stat-icon {  
+  font-size: 27px;  
+}  
+  
+.stat-number {  
+  font-size: 27px;  
+  font-weight: 800;  
+  margin: 7px 0 0;  
+}  
+  
+.stat-label {  
+  color: #819187;  
+  font-size: 13px;  
+}  
+  
+nav {  
+  display: flex;  
+  gap: 9px;  
+  overflow-x: auto;  
+  padding: 23px 0;  
+}  
+  
+nav button {  
+  border: none;  
+  background: white;  
+  color: var(--text);  
+  padding: 12px 17px;  
+  border-radius: 14px;  
+  font-family: inherit;  
+  font-weight: 800;  
+  white-space: nowrap;  
+  cursor: pointer;  
+}  
+  
+nav button.active,  
+nav button:hover {  
+  background: var(--green);  
+  color: white;  
+}  
+  
+.page { display: none; }  
+.page.active { display: block; }  
+  
+.section-title {  
+  font-size: 23px;  
+  margin: 10px 0 17px;  
+}  
+  
+.grid {  
+  display: grid;  
+  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));  
+  gap: 16px;  
+}  
+  
+.feature {  
+  border-radius: 22px;  
+  padding: 23px;  
+  min-height: 170px;  
+}  
+  
+.mint { background: var(--mint); }  
+.blue { background: var(--blue); }  
+.purple { background: var(--purple); }  
+.cream { background: var(--cream); }  
+  
+.feature-icon { font-size: 35px; }  
+  
+.feature h3 { margin-bottom: 5px; }  
+  
+.feature p {  
+  color: #6e8176;  
+  font-size: 14px;  
+}  
+  
+.panel {  
+  background: white;  
+  padding: 24px;  
+  border-radius: 22px;  
+  margin-bottom: 17px;  
+}  
+  
+input {  
+  width: 100%;  
+  padding: 13px;  
+  margin: 8px 0 14px;  
+  border: 1px solid #dce8df;  
+  border-radius: 12px;  
+  font-family: inherit;  
+  font-size: 15px;  
+}  
+  
+.action {  
+  border: none;  
+  background: var(--green);  
+  color: white;  
+  padding: 12px 20px;  
+  border-radius: 12px;  
+  font-family: inherit;  
+  font-weight: 800;  
+  cursor: pointer;  
+}  
+  
+.action:hover { background: var(--dark); }  
+  
+.option {  
+  display: block;  
+  background: #f3f7f3;  
+  border: 1px solid #e0ebe2;  
+  padding: 13px;  
+  border-radius: 12px;  
+  margin: 10px 0;  
+  cursor: pointer;  
+}  
+  
+.result {  
+  background: #e9f4ed;  
+  padding: 14px;  
+  border-radius: 13px;  
+  margin-top: 15px;  
+  display: none;  
+}  
+  
+.tree {  
+  font-size: 65px;  
+  text-align: center;  
+  margin: 20px;  
+}  
+  
+.progress-bg {  
+  height: 13px;  
+  background: #e9eee9;  
+  border-radius: 20px;  
+  overflow: hidden;  
+  margin: 12px 0;  
+}  
+  
+.progress-fill {  
+  height: 100%;  
+  width: 0%;  
+  background: var(--green);  
+  transition: .3s;  
+}  
+  
+footer {  
+  text-align: center;  
+  color: #8a9a90;  
+  font-size: 12px;  
+  padding: 25px;  
+}  
+  
+@media(max-width:500px) {  
+  header { padding: 22px 5%; }  
+  .profile { font-size: 12px; }  
+  .welcome h1 { font-size: 26px; }  
+}  
+</style>  </head>  <body>  <header>  
+  <div class="top">  
+    <div>  
+      <div class="logo">🌿 GlucoLife <span>AI</span></div>  
+      <div class="tagline">Smart Learning. Healthier Living.</div>  
+    </div>  
+    <div class="profile">👤 <span id="player">Guest</span></div>  
+  </div>    <div class="welcome">  
+    <h1>Welcome to GlucoLife AI!</h1>  
+    <p>Your journey to learning and healthy habits starts here.</p>  
+    <input id="nameInput" placeholder="Enter your name">  
+    <button class="action" onclick="saveName()">Get Started ✨</button>  
+  </div>  
+</header>  <div class="container">    <div class="stats">  
+    <div class="card">  
+      <div class="stat-icon">⭐</div>  
+      <div class="stat-number" id="points">0</div>  
+      <div class="stat-label">Total Points</div>  
+    </div>  <div class="card">  
+  <div class="stat-icon">🏆</div>  
+  <div class="stat-number" id="level">1</div>  
+  <div class="stat-label">Current Level</div>  
+</div>  
+
+<div class="card">  
+  <div class="stat-icon">🎯</div>  
+  <div class="stat-number" id="challenges">0</div>  
+  <div class="stat-label">Challenges Completed</div>  
+</div>  
+
+<div class="card">  
+  <div class="stat-icon">🎮</div>  
+  <div class="stat-number" id="games">0</div>  
+  <div class="stat-label">Games Played</div>  
+</div>
+
+  </div>    <nav>  
+    <button class="active" onclick="showPage('home',this)">🏠 Home</button>  
+    <button onclick="showPage('nutrition',this)">🥗 Nutrition</button>  
+    <button onclick="showPage('game',this)">🎮 Game</button>  
+    <button onclick="showPage('daily',this)">🎯 Challenges</button>  
+    <button onclick="showPage('tree',this)">🌳 My Tree</button>  
+    <button onclick="showPage('rewards',this)">🏆 Rewards</button>  
+  </nav>    <!-- HOME -->    <section id="home" class="page active">  
+    <h2 class="section-title">Your Dashboard 🌱</h2>  <div class="grid">  
+  <div class="feature mint">  
+    <div class="feature-icon">🥗</div>  
+    <h3>Nutrition Calculator</h3>  
+    <p>Explore calories and carbohydrates in your food.</p>  
+    <button class="action" onclick="showPage('nutrition')">Explore</button>  
+  </div>  
+
+  <div class="feature blue">  
+    <div class="feature-icon">🎮</div>  
+    <h3>Sugar Guardian</h3>  
+    <p>Learn through fun educational questions.</p>  
+    <button class="action" onclick="showPage('game')">Play Now</button>  
+  </div>  
+
+  <div class="feature purple">  
+    <div class="feature-icon">🎯</div>  
+    <h3>Daily Challenges</h3>  
+    <p>Complete learning activities and earn points.</p>  
+    <button class="action" onclick="showPage('daily')">View Tasks</button>  
+  </div>  
+
+  <div class="feature cream">  
+    <div class="feature-icon">🌳</div>  
+    <h3>Virtual Health Tree</h3>  
+    <p>Watch your virtual tree grow with your progress.</p>  
+    <button class="action" onclick="showPage('tree')">View Tree</button>  
+  </div>  
+</div>
+
+  </section>    <!-- NUTRITION -->    <section id="nutrition" class="page">  
+    <h2 class="section-title">🥗 Nutrition Calculator</h2>  
+    <div class="panel">  
+      <p>Enter the values shown on your food label.</p>  <label>Calories (kcal)</label>  
+  <input type="number" id="calories" min="0" placeholder="Example: 150">  
+
+  <label>Carbohydrates (grams)</label>  
+  <input type="number" id="carbs" min="0" placeholder="Example: 20">  
+
+  <button class="action" onclick="calculateNutrition()">Calculate</button>  
+  <div class="result" id="nutritionResult"></div>  
+</div>
+
+  </section>    <!-- GAME -->    <section id="game" class="page">  
+    <h2 class="section-title">🎮 Sugar Guardian</h2>  
+    <div class="panel">  
+      <h3 id="question">Which drink is a good everyday choice?</h3>  
+      <label class="option">  
+        <input type="radio" name="answer" value="1"> 💧 Water  
+      </label>  
+      <label class="option">  
+        <input type="radio" name="answer" value="2"> 🥤 Sugary soft drink  
+      </label>  
+      <button class="action" onclick="checkAnswer()">Submit Answer</button>  
+      <div class="result" id="gameResult"></div>  
+      <button class="action" id="nextQuestion" onclick="nextGameQuestion()" style="display:none;margin-top:10px">Next Question</button>  
+    </div>  
+  </section>    <!-- CHALLENGES -->    <section id="daily" class="page">  
+    <h2 class="section-title">🎯 Daily Challenges</h2>  
+    <div class="panel">  
+      <p>Choose a learning challenge to complete:</p>  
+      <label class="option"><input type="checkbox" onchange="completeChallenge(this)"> Learn about balanced meals</label>  
+      <label class="option"><input type="checkbox" onchange="completeChallenge(this)"> Explore food labels</label>  
+      <label class="option"><input type="checkbox" onchange="completeChallenge(this)"> Learn about hydration</label>  
+      <label class="option"><input type="checkbox" onchange="completeChallenge(this)"> Discover the benefits of movement</label>  
+      <label class="option"><input type="checkbox" onchange="completeChallenge(this)"> Learn something new about health</label>  
+      <p id="challengeMessage"></p>  
+    </div>  
+  </section>    <!-- TREE -->    <section id="tree" class="page">  
+    <h2 class="section-title">🌳 Virtual Health Tree</h2>  
+    <div class="panel">  
+      <div class="tree" id="treeIcon">🌱</div>  
+      <h3 style="text-align:center" id="treeTitle">Your tree is growing!</h3>  
+      <p style="text-align:center">Earn points through learning and challenges.</p>  
+      <div class="progress-bg">  
+        <div class="progress-fill" id="progressBar"></div>  
+      </div>  
+      <p style="text-align:center" id="progressText">0 / 25 points</p>  
+    </div>  
+  </section>    <!-- REWARDS -->    <section id="rewards" class="page">  
+    <h2 class="section-title">🏆 My Achievements</h2>  
+    <div class="panel">  
+      <h3 id="rewardName">Health Beginner</h3>  
+      <p>Your learning journey and badges:</p>  
+      <div id="badges"></div>  
+    </div>  
+  </section>  </div>  <footer>  
+  GlucoLife AI © 2026  
+  <br><br>  
+  Educational project only. Not a substitute for professional medical advice.  
+</footer>  <script>  
+let points = 0;  
+let completed = 0;  
+let games = 0;  
+let questionNumber = 0;  
+let answered = false;  
+  
+const questions = [  
+  {  
+    text: "Which drink is a good everyday choice?",  
+    options: ["Water", "Sugary soft drink"],  
+    correct: 1,  
+    explanation: "Water is a great everyday hydration choice!"  
+  },  
+  {  
+    text: "Which food is a source of dietary fiber?",  
+    options: ["Whole grain bread", "Candy"],  
+    correct: 1,  
+    explanation: "Whole grains can provide dietary fiber!"  
+  },  
+  {  
+    text: "What helps us understand food information?",  
+    options: ["Reading food labels", "Ignoring food labels"],  
+    correct: 1,  
+    explanation: "Food labels help us learn about food contents!"  
+  }  
+];  
+  
+function showPage(id,button) {  
+  document.querySelectorAll(".page").forEach(p => {  
+    p.classList.remove("active");  
+  });  
+  
+  document.getElementById(id).classList.add("active");  
+  
+  document.querySelectorAll("nav button").forEach(b => {  
+    b.classList.remove("active");  
+  });  
+  
+  if(button) button.classList.add("active");  
+  
+  updateDisplay();  
+}  
+  
+function saveName() {  
+  const value = document.getElementById("nameInput").value.trim();  
+  
+  if(value) {  
+    document.getElementById("player").textContent = value;  
+    alert("Welcome, " + value + "! 🌿");  
+  } else {  
+    alert("Please enter your name first.");  
+  }  
+}  
+  
+function calculateNutrition() {  
+  const c = document.getElementById("calories").value;  
+  const carb = document.getElementById("carbs").value;  
+  const result = document.getElementById("nutritionResult");  
+  
+  if(c === "" || carb === "" || Number(c) < 0 || Number(carb) < 0) {  
+    alert("Please enter valid non-negative values.");  
+    return;  
+  }  
+  
+  result.style.display = "block";  
+  result.innerHTML =  
+    "<strong>Your Nutrition Summary</strong><br><br>" +  
+    "Calories: " + Number(c) + " kcal<br>" +  
+    "Carbohydrates: " + Number(carb) + " grams";  
+}  
+  
+function checkAnswer() {  
+  if(answered) return;  
+  
+  const selected = document.querySelector('input[name="answer"]:checked');  
+  
+  if(!selected) {  
+    alert("Please choose an answer!");  
+    return;  
+  }  
+  
+  const q = questions[questionNumber];  
+  const result = document.getElementById("gameResult");  
+  
+  if(Number(selected.value) === q.correct) {  
+    points += 10;  
+    result.innerHTML = "🌟 Correct! +10 points! " + q.explanation;  
+  } else {  
+    result.innerHTML = "💚 Good try! " + q.explanation;  
+  }  
+  
+  result.style.display = "block";  
+  answered = true;  
+  games++;  
+  
+  document.getElementById("nextQuestion").style.display = "inline-block";  
+  updateDisplay();  
+}  
+  
+function nextGameQuestion() {  
+  questionNumber = (questionNumber + 1) % questions.length;  
+  answered = false;  
+  
+  const q = questions[questionNumber];  
+  
+  document.getElementById("question").textContent = q.text;  
+  
+  const options = document.querySelectorAll('input[name="answer"]');  
+  
+  options[0].parentElement.innerHTML =  
+    '<input type="radio" name="answer" value="1"> ' + q.options[0];  
+  
+  options[1].parentElement.innerHTML =  
+    '<input type="radio" name="answer" value="2"> ' + q.options[1];  
+  
+  document.getElementById("gameResult").style.display = "none";  
+  document.getElementById("nextQuestion").style.display = "none";  
+}  
+  
+function completeChallenge(box) {  
+  if(box.checked) {  
+    points += 15;  
+    completed++;  
+    document.getElementById("challengeMessage").textContent =  
+      "Great work! You earned 15 points! 🌟";  
+  } else {  
+    points -= 15;  
+    completed--;  
+    document.getElementById("challengeMessage").textContent =  
+      "Challenge unchecked.";  
+  }  
+  
+  updateDisplay();  
+}  
+  
+function updateDisplay() {  
+  document.getElementById("points").textContent = points;  
+  document.getElementById("challenges").textContent = completed;  
+  document.getElementById("games").textContent = games;  
+  
+  let level = 1;  
+  let title = "Health Beginner";  
+  let next = 25;  
+  
+  if(points >= 100) {  
+    level = 4;  
+    title = "Health Legend";  
+    next = 100;  
+  } else if(points >= 60) {  
+    level = 3;  
+    title = "Wellness Champion";  
+    next = 100;  
+  } else if(points >= 25) {  
+    level = 2;  
+    title = "Health Explorer";  
+    next = 60;  
+  }  
+  
+  document.getElementById("level").textContent = level;  
+  document.getElementById("rewardName").textContent = title;  
+  
+  const tree = points >= 100 ? "🌳" :  
+               points >= 60 ? "🌲" :  
+               points >= 25 ? "🌿" : "🌱";  
+  
+  document.getElementById("treeIcon").textContent = tree;  
+  document.getElementById("treeTitle").textContent = title;  
+  
+  let start = level === 1 ? 0 : level === 2 ? 25 :  
+              level === 3 ? 60 : 100;  
+  
+  let percentage = level === 4 ? 100 :  
+    Math.max(0,Math.min(100,(points-start)/(next-start)*100));  
+  
+  document.getElementById("progressBar").style.width = percentage + "%";  
+  document.getElementById("progressText").textContent =  
+    points + " points | Next target: " + next;  
+  
+  const badgeList = [  
+    [25,"🌿 Health Explorer"],  
+    [60,"🏆 Wellness Champion"],  
+    [100,"👑 Health Legend"]  
+  ];  
+  
+  document.getElementById("badges").innerHTML =  
+    badgeList.map(b =>  
+      "<p>" + (points >= b[0] ? "✅ " : "🔒 ") +  
+      b[1] + " (" + b[0] + " points)</p>"  
+    ).join("");  
+}  
+  
+updateDisplay();  
+</script>  </body>  
+</html>  
