@@ -385,26 +385,130 @@ let games = 0;
 let questionNumber = 0;  
 let answered = false;  
   
-const questions = [  
-  {  
-    text: "Which drink is a good everyday choice?",  
-    options: ["Water", "Sugary soft drink"],  
-    correct: 1,  
-    explanation: "Water is a great everyday hydration choice!"  
-  },  
-  {  
-    text: "Which food is a source of dietary fiber?",  
-    options: ["Whole grain bread", "Candy"],  
-    correct: 1,  
-    explanation: "Whole grains can provide dietary fiber!"  
-  },  
-  {  
-    text: "What helps us understand food information?",  
-    options: ["Reading food labels", "Ignoring food labels"],  
-    correct: 1,  
-    explanation: "Food labels help us learn about food contents!"  
-  }  
-];  
+
+const questions = [
+  {
+    text: "Which drink is a good everyday choice?",
+    options: ["Water", "Sugary soft drink"],
+    correct: 1,
+    explanation: "Water is a great everyday hydration choice! Keep going!"
+  },
+  {
+    text: "Which food is a good source of fiber?",
+    options: ["Whole grains", "Candy"],
+    correct: 1,
+    explanation: "Whole grains provide fiber that supports digestion!"
+  },
+  {
+    text: "What is a balanced meal likely to include?",
+    options: ["Only sweets", "Vegetables and protein"],
+    correct: 2,
+    explanation: "A balanced meal can include vegetables and protein. Great learning!"
+  },
+  {
+    text: "Which is a healthy daily habit?",
+    options: ["Regular movement", "Never moving"],
+    correct: 1,
+    explanation: "Regular movement supports overall health. You can do it!"
+  },
+  {
+    text: "Which snack is a nutritious option?",
+    options: ["Fresh fruit", "Only candy"],
+    correct: 1,
+    explanation: "Fresh fruit provides vitamins and fiber. Well done!"
+  },
+  {
+    text: "Why is sleep important?",
+    options: ["It supports the body", "It is never needed"],
+    correct: 1,
+    explanation: "Good sleep supports your body's health and wellbeing!"
+  },
+  {
+    text: "Which drink contains no added sugar naturally?",
+    options: ["Plain water", "Sugary soda"],
+    correct: 1,
+    explanation: "Plain water has no added sugar. Keep learning!"
+  },
+  {
+    text: "What can help build a healthy routine?",
+    options: ["Small daily habits", "Skipping every healthy habit"],
+    correct: 1,
+    explanation: "Small consistent habits can make a positive difference!"
+  },
+  {
+    text: "Which food group provides protein?",
+    options: ["Eggs and beans", "Soft drinks"],
+    correct: 1,
+    explanation: "Eggs and beans are sources of protein. Excellent!"
+  },
+  {
+    text: "What is a good way to stay active?",
+    options: ["Taking a walk", "Sitting all day"],
+    correct: 1,
+    explanation: "Walking is one way to add movement to your day!"
+  },
+  {
+    text: "Which is a whole grain food?",
+    options: ["Oats", "Sugary candy"],
+    correct: 1,
+    explanation: "Oats are a whole grain. You're doing great!"
+  },
+  {
+    text: "What should you do before eating?",
+    options: ["Wash your hands", "Ignore hand hygiene"],
+    correct: 1,
+    explanation: "Washing hands helps reduce the spread of germs!"
+  },
+  {
+    text: "Which food is a source of healthy fats?",
+    options: ["Avocado", "Sugary soda"],
+    correct: 1,
+    explanation: "Avocado contains unsaturated fats. Keep it up!"
+  },
+  {
+    text: "What is hydration?",
+    options: ["Getting enough fluids", "Avoiding all fluids"],
+    correct: 1,
+    explanation: "Hydration means getting enough fluids for your body!"
+  },
+  {
+    text: "Which habit supports oral health?",
+    options: ["Brushing your teeth", "Never brushing"],
+    correct: 1,
+    explanation: "Brushing your teeth helps keep your mouth healthy!"
+  },
+  {
+    text: "Which is a colorful vegetable?",
+    options: ["Carrot", "Candy"],
+    correct: 1,
+    explanation: "Carrots are vegetables rich in useful nutrients!"
+  },
+  {
+    text: "What is a helpful way to manage stress?",
+    options: ["Slow breathing", "Never taking a break"],
+    correct: 1,
+    explanation: "Slow breathing may help you feel calmer. Great work!"
+  },
+  {
+    text: "Which choice can support heart health?",
+    options: ["Regular physical activity", "Avoiding all movement"],
+    correct: 1,
+    explanation: "Regular activity supports heart and overall health!"
+  },
+  {
+    text: "What is a good goal for learning?",
+    options: ["Practice a little every day", "Give up immediately"],
+    correct: 1,
+    explanation: "Small steps help learning grow. Keep going!"
+  },
+  {
+    text: "Can healthy habits look different for different people?",
+    options: ["Yes", "No"],
+    correct: 1,
+    explanation: "People have different needs. Learning is about finding safe habits that work for them!"
+  }
+];
+
   
 function showPage(id,button) {  
   document.querySelectorAll(".page").forEach(p => {  
