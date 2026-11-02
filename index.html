@@ -571,5 +571,29 @@ function updateDisplay() {
 }  
   
 updateDisplay();  
-</script>  </body>  
+// Save and restore GlucoLife progress
+const savedProgress = JSON.parse(
+  localStorage.getItem("glucoLifeProgress") || "null"
+);
+
+if (savedProgress) {
+  points = Number(savedProgress.points) || 0;
+  completed = Number(savedProgress.completed) || 0;
+}
+
+const originalUpdateDisplay = updateDisplay;
+
+updateDisplay = function () {
+  originalUpdateDisplay();
+
+  localStorage.setItem(
+    "glucoLifeProgress",
+    JSON.stringify({
+      points: points,
+      completed: completed
+    })
+  );
+};
+
+updateDisplay(); </script>  </body>  
 </html>  
