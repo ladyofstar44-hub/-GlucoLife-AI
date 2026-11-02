@@ -700,4 +700,155 @@ updateDisplay = function () {
 };
 
 updateDisplay(); </script>  </body>  
+  
+<style>
+  .reward-box {
+    background: linear-gradient(135deg, #e8f8ee, #e9f0ff);
+    padding: 22px;
+    border-radius: 18px;
+    margin: 20px 0;
+    text-align: center;
+    color: #245b46;
+  }
+
+  .reward-box h2 {
+    margin-top: 5px;
+  }
+
+  .reward-tree {
+    font-size: 65px;
+    margin: 12px;
+  }
+
+  .reward-progress {
+    background: #d5e5dc;
+    height: 14px;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 15px 0;
+  }
+
+  .reward-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: #35a879;
+    transition: width .4s;
+  }
+
+  .reward-badges {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+  }
+
+  .reward-badge {
+    background: white;
+    border-radius: 12px;
+    padding: 12px;
+    min-width: 90px;
+    box-shadow: 0 2px 8px #0001;
+  }
+
+  .reward-badge.locked {
+    opacity: .35;
+    filter: grayscale(1);
+  }
+</style>
+
+<div class="reward-box" id="newRewards">
+  <h2>🏆 My Rewards</h2>
+  <div class="reward-tree" id="rewardTree">🌱</div>
+  <h3 id="rewardLevel">Level 1 - Beginner</h3>
+  <p id="rewardPoints">Your points: 0</p>
+  <div class="reward-progress">
+    <div class="reward-progress-fill" id="rewardFill"></div>
+  </div>
+  <p id="rewardNext">Earn 50 points to reach the next level!</p>
+
+  <h3>🎁 My Badges</h3>
+  <div class="reward-badges" id="rewardBadges"></div>
+</div>
+
+<script>
+(function () {
+  const levels = [
+    { name: "Beginner", points: 0, tree: "🌱" },
+    { name: "Learner", points: 50, tree: "🌿" },
+    { name: "Achiever", points: 100, tree: "🌳" },
+    { name: "Champion", points: 200, tree: "🌲" },
+    { name: "Health Hero", points: 350, tree: "🌳🌸" }
+  ];
+
+  const badges = [
+    { points: 10, icon: "⭐", name: "First Steps" },
+    { points: 50, icon: "📚", name: "Learner" },
+    { points: 100, icon: "🏅", name: "Achiever" },
+    { points: 200, icon: "🏆", name: "Champion" },
+    { points: 350, icon: "💎", name: "Health Hero" }
+  ];
+
+  function updateRewards() {
+    const total = Math.max(0, Number(window.points) || 0);
+
+    let current = levels[0];
+    let next = null;
+
+    for (let i = 0; i < levels.length; i++) {
+      if (total >= levels[i].points) {
+        current = levels[i];
+      } else {
+        next = levels[i];
+        break;
+      }
+    }
+
+    document.getElementById("rewardTree").textContent = current.tree;
+    document.getElementById("rewardLevel").textContent =
+      "Level " + (levels.indexOf(current) + 1) + " - " + current.name;
+
+    document.getElementById("rewardPoints").textContent =
+      "Your points: " + total;
+
+    const previous = current.points;
+    const progress = next
+      ? ((total - previous) / (next.points - previous)) * 100
+      : 100;
+
+    document.getElementById("rewardFill").style.width =
+      Math.min(100, progress) + "%";
+
+    document.getElementById("rewardNext").textContent = next
+      ? "Only " + (next.points - total) + " points to " + next.name + "!"
+      : "Amazing! You reached the highest level! 🎉";
+
+    document.getElementById("rewardBadges").innerHTML =
+      badges.map(function (badge) {
+        const unlocked = total >= badge.points;
+        return '<div class="reward-badge ' +
+          (unlocked ? "" : "locked") + '">' +
+          '<div style="font-size:28px">' + badge.icon + '</div>' +
+          '<strong>' + badge.name + '</strong>' +
+          '<div>' + badge.points + ' points</div>' +
+          '</div>';
+      }).join("");
+  }
+
+  updateRewards();
+
+  // Refresh rewards whenever the existing game updates its display.
+  if (typeof window.updateDisplay === "function") {
+    const oldUpdateDisplay = window.updateDisplay;
+    window.updateDisplay = function () {
+      oldUpdateDisplay.apply(this, arguments);
+      updateRewards();
+    };
+  }
+
+  // Keep rewards in sync when points change.
+  setInterval(updateRewards, 1000);
+})();
+</script>
+
 </html>  
